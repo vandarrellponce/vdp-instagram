@@ -12,7 +12,11 @@
 	object-fit: contain;
 	background-color: white;
 	padding: 20px;
+	padding-left: 50px;
 	border-bottom: 1px solid lightgray;
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 
 .app__headerImage {
@@ -21,4 +25,10 @@
 
 .app__posts {
 	padding: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.app__postsRight {
+	margin-left: 20px;
 }

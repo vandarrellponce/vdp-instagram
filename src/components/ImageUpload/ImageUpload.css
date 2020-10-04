@@ -1,3 +1,12 @@
+.imageUpload__mainContainer {
+	display: flex;
+	width: 100%;
+	background-color: white;
+	border-top: 1px solid lightgray;
+	position: sticky;
+	bottom: 0;
+}
+
 .imageUpload__container {
 	display: flex;
 	flex-direction: column;
@@ -7,7 +16,6 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background-color: white;
-	border-top: 1px solid lightgray;
 }
 
 .imageUpload__form1 {

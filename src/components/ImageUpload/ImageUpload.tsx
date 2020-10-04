@@ -55,24 +55,26 @@ const ImageUpload: React.FC<{ username: string }> = (props) => {
 		if (e.target.files[0]) setImage(e.target.files[0])
 	}
 	return (
-		<div className="imageUpload__container">
-			<progress
-				value={progress}
-				max="100"
-				className="imageUpload__progress"
-			/>
-			<form className="imageUpload__form1">
-				<Input
-					type="text"
-					placeholder="Enter a caption"
-					value={caption}
-					onChange={(e) => setCaption(e.target.value)}
+		<div className="imageUpload__mainContainer">
+			<div className="imageUpload__container">
+				<progress
+					value={progress}
+					max="100"
+					className="imageUpload__progress"
 				/>
-				<div className="imageUpload__form2">
-					<Input type="file" onChange={handleFileChange} />
-					<Button onClick={handleUpload}>Upload</Button>
-				</div>
-			</form>
+				<form className="imageUpload__form1">
+					<Input
+						type="text"
+						placeholder="Enter a caption"
+						value={caption}
+						onChange={(e) => setCaption(e.target.value)}
+					/>
+					<div className="imageUpload__form2">
+						<Input type="file" onChange={handleFileChange} />
+						<Button onClick={handleUpload}>Upload</Button>
+					</div>
+				</form>
+			</div>
 		</div>
 	)
 }

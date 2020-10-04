@@ -1,4 +1,5 @@
 import { Button } from '@material-ui/core'
+import InstagramEmbed from 'react-instagram-embed'
 
 import React, { useEffect, useState } from 'react'
 
@@ -120,20 +121,42 @@ const App = () => {
 						</Button>
 					</div>
 				) : (
-					<Button onClick={logOut}>Log Out</Button>
+					<div style={{ display: 'flex', alignItems: 'center' }}>
+						<Button onClick={logOut}>Log Out</Button>
+						<Button style={{ color: '#67b2f0' }}>
+							{user.displayName}
+						</Button>
+					</div>
 				)}
 			</div>
 
 			{/* BODY (POSTS) */}
 			<div className="app__posts">
-				{posts.map((post) => (
-					<Post
-						key={post.id}
-						username={post.username}
-						imageURL={post.imageURL}
-						caption={post.caption}
+				<div className="app__postsLeft">
+					{posts.map((post) => (
+						<Post
+							postId={post.id}
+							key={post.id}
+							username={post.username}
+							imageURL={post.imageURL}
+							caption={post.caption}
+						/>
+					))}
+				</div>
+				<div className="app__postsRight">
+					<InstagramEmbed
+						url="https://www.instagram.com/p/B_uf9dmAGPw"
+						maxWidth={320}
+						hideCaption={false}
+						containerTagName="div"
+						protocol=""
+						injectScript
+						onLoading={() => {}}
+						onSuccess={() => {}}
+						onAfterRender={() => {}}
+						onFailure={() => {}}
 					/>
-				))}
+				</div>
 			</div>
 
 			{/* IMAGE UPLOAD */}
