@@ -15,7 +15,7 @@ const Post: React.FC<Props> = (props) => {
 			<div className="post__header">
 				<Avatar
 					className="post__avatar"
-					alt="V"
+					alt={props.userName}
 					src="/static/images/avatar/1.jpg"
 				/>
 				<h3>{props.userName}</h3>

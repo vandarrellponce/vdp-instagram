@@ -3,9 +3,10 @@ import { Button } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 
 import './App.css'
-import MyModal from './components/Modal/Modal'
+import SignUpModal from './components/SignUpModal/SignUpModal'
 import Post from './components/Post/Post'
 import { auth, db } from './database/firebase'
+import SignInModal from './components/SignInModal/SingInModal'
 
 interface Post {
 	id: string
@@ -17,22 +18,33 @@ interface Post {
 const App = () => {
 	// STATES
 	const [posts, setPosts] = useState<Post[]>([])
-	const [open, setOpen] = useState(false)
+	const [openSignUp, setOpenSignUp] = useState(false)
 	const [user, setUser] = useState(null)
 	const [username, setUsername] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+	const [openSignIn, setOpenSignIn] = useState(false)
 
 	// METHODS
-	const signUp = (username: string, email: string, password: string) => {
+	const signUp = (email: string, password: string, username: string) => {
 		setUsername(username)
-		setEmail(email)
-		setPassword(password)
 
-		auth.createUserWithEmailAndPassword(email, password).catch((e) =>
-			alert(e.message)
-		)
-		setOpen(false)
+		auth.createUserWithEmailAndPassword(email, password)
+			.then((authUser) => {
+				setOpenSignUp(false)
+				return authUser.user.updateProfile({ displayName: username })
+			})
+			.catch((e) => alert(e.message))
+	}
+
+	const signIn = (email: string, password: string) => {
+		auth.signInWithEmailAndPassword(email, password)
+			.then((authUser) => {
+				setOpenSignIn(false)
+			})
+			.catch((e) => alert(e.message))
+	}
+
+	const logOut = () => {
+		auth.signOut()
 	}
 
 	// USE EFFECTS
@@ -54,17 +66,11 @@ const App = () => {
 	}, [])
 
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((authUser) => {
-			if (authUser) {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user) {
 				// user has ogged in...
-				console.log(authUser)
-				setUser(authUser)
-
-				if (!authUser.displayName) {
-					return authUser.updateProfile({
-						displayName: username,
-					})
-				}
+				console.log(user)
+				setUser(user)
 			} else {
 				// user has logged out...
 				setUser(null)
@@ -81,10 +87,16 @@ const App = () => {
 	return (
 		<div className="app">
 			{/* MODAL */}
-			<MyModal
-				open={open}
-				onClose={() => setOpen(false)}
-				signUp={signUp}
+			<SignUpModal
+				open={openSignUp}
+				onClose={() => setOpenSignUp(false)}
+				submitForm={signUp}
+			/>
+
+			<SignInModal
+				open={openSignIn}
+				onClose={() => setOpenSignIn(false)}
+				submitForm={signIn}
 			/>
 
 			{/* HEADER */}
@@ -95,7 +107,17 @@ const App = () => {
 					alt="logo"
 				/>
 			</div>
-			<Button onClick={() => setOpen(true)}>Sign Up</Button>
+
+			{/* BUTTON */}
+			{!user ? (
+				<div className="app__loginContainer">
+					<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+					<Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+				</div>
+			) : (
+				<Button onClick={logOut}>Log Out</Button>
+			)}
+
 			{/* BODY (POSTS) */}
 			{posts.map((post) => (
 				<Post

@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	open: boolean
 	onClose: () => void
-	signUp: (username: string, email: string, password: string) => void
+	submitForm: (email: string, password: string, username: string) => void
 }
 
-const MyModal: React.FC<Props> = (props) => {
+const SignUpModal: React.FC<Props> = (props) => {
 	const classes = useStyles()
 	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
@@ -88,7 +88,9 @@ const MyModal: React.FC<Props> = (props) => {
 						autoComplete="true"
 					/>
 					<Button
-						onClick={() => props.signUp(username, email, password)}
+						onClick={() =>
+							props.submitForm(email, password, username)
+						}
 					>
 						Sign Up
 					</Button>
@@ -98,4 +100,4 @@ const MyModal: React.FC<Props> = (props) => {
 	)
 }
 
-export default MyModal
+export default SignUpModal
