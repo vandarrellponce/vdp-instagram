@@ -27,8 +27,14 @@
 	padding: 20px;
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.app__postsLeft {
+	flex: 1;
 }
 
 .app__postsRight {
 	margin-left: 20px;
+	flex: 0;
 }
