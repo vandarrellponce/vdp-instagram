@@ -1,0 +1,11 @@
+.modal__header {
+	display: flex;
+	border: 1px solid rgb(11, 88, 56);
+	background-color: rgb(195, 240, 234);
+	justify-content: center;
+}
+.modal__signup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}

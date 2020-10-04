@@ -2,9 +2,15 @@ import React from 'react'
 import './Post.css'
 import Avatar from '@material-ui/core/Avatar'
 
-const Post = () => {
+interface Props {
+	userName: string
+	imageURL: string
+	caption: string
+}
+
+const Post: React.FC<Props> = (props) => {
 	return (
-		<div>
+		<div className="post">
 			{/* Header = avatar + user */}
 			<div className="post__header">
 				<Avatar
@@ -12,19 +18,17 @@ const Post = () => {
 					alt="V"
 					src="/static/images/avatar/1.jpg"
 				/>
-				<h3>Username</h3>
+				<h3>{props.userName}</h3>
 			</div>
 
 			{/* image */}
-			<img
-				className="post__image"
-				src="https://mirrorlesscomparison.com/wp-content/uploads/2018/11/Fuji-X-T3-sample-2.jpg"
-				alt="post"
-			/>
+			<img className="post__image" src={props.imageURL} alt="post" />
 
 			{/* username + caption */}
 			<h4 className="post__text">
-				<strong>username</strong> - caption
+				<strong>{props.userName}</strong>
+				&nbsp;&nbsp;&nbsp;
+				{props.caption}
 			</h4>
 		</div>
 	)
