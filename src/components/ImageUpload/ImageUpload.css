@@ -1,0 +1,26 @@
+.imageUpload__container {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+	border-top: 1px solid lightgray;
+}
+
+.imageUpload__form1 {
+	display: flex;
+	flex-direction: column;
+	max-width: 550px;
+}
+
+.imageUpload_form2 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.imageUpload__progress {
+	width: 100%;
+}

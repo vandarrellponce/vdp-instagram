@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		paper: {
 			position: 'absolute',
-			width: 400,
+			width: '40%',
 			backgroundColor: theme.palette.background.paper,
 			border: '2px solid #000',
 			boxShadow: theme.shadows[5],
@@ -36,7 +36,6 @@ interface Props {
 
 const SignInModal: React.FC<Props> = (props) => {
 	const classes = useStyles()
-	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -77,6 +76,7 @@ const SignInModal: React.FC<Props> = (props) => {
 						onChange={handlePassword}
 						autoComplete="true"
 					/>
+
 					<Button
 						onClick={(e) => {
 							e.preventDefault()

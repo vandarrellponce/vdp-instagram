@@ -7,6 +7,7 @@ import SignUpModal from './components/SignUpModal/SignUpModal'
 import Post from './components/Post/Post'
 import { auth, db } from './database/firebase'
 import SignInModal from './components/SignInModal/SingInModal'
+import ImageUpload from './components/ImageUpload/ImageUpload'
 
 interface Post {
 	id: string
@@ -45,12 +46,14 @@ const App = () => {
 
 	const logOut = () => {
 		auth.signOut()
+			.then(() => alert('User succesfully logged out'))
+			.catch((e) => alert(e.message))
 	}
 
 	// USE EFFECTS
 	useEffect(() => {
 		db.collection('posts')
-			.orderBy('caption', 'desc')
+			.orderBy('timestamp', 'desc')
 			.onSnapshot((snapshot) => {
 				setPosts(
 					snapshot.docs.map((doc) => {
@@ -106,27 +109,39 @@ const App = () => {
 					src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
 					alt="logo"
 				/>
+				{/* SIGN IN AND UP BUTTON */}
+				{!user ? (
+					<div className="app__loginContainer">
+						<Button onClick={() => setOpenSignIn(true)}>
+							Sign In
+						</Button>
+						<Button onClick={() => setOpenSignUp(true)}>
+							Sign Up
+						</Button>
+					</div>
+				) : (
+					<Button onClick={logOut}>Log Out</Button>
+				)}
 			</div>
 
-			{/* BUTTON */}
-			{!user ? (
-				<div className="app__loginContainer">
-					<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-					<Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
-				</div>
-			) : (
-				<Button onClick={logOut}>Log Out</Button>
-			)}
-
 			{/* BODY (POSTS) */}
-			{posts.map((post) => (
-				<Post
-					key={post.id}
-					userName={post.username}
-					imageURL={post.imageURL}
-					caption={post.caption}
-				/>
-			))}
+			<div className="app__posts">
+				{posts.map((post) => (
+					<Post
+						key={post.id}
+						username={post.username}
+						imageURL={post.imageURL}
+						caption={post.caption}
+					/>
+				))}
+			</div>
+
+			{/* IMAGE UPLOAD */}
+			{user?.displayName ? (
+				<ImageUpload username={user.displayName} />
+			) : (
+				<h3>Login to upload</h3>
+			)}
 		</div>
 	)
 }

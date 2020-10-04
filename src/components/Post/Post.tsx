@@ -3,7 +3,7 @@ import './Post.css'
 import Avatar from '@material-ui/core/Avatar'
 
 interface Props {
-	userName: string
+	username: string
 	imageURL: string
 	caption: string
 }
@@ -15,10 +15,10 @@ const Post: React.FC<Props> = (props) => {
 			<div className="post__header">
 				<Avatar
 					className="post__avatar"
-					alt={props.userName}
+					alt={props.username}
 					src="/static/images/avatar/1.jpg"
 				/>
-				<h3>{props.userName}</h3>
+				<h3>{props.username}</h3>
 			</div>
 
 			{/* image */}
@@ -26,7 +26,7 @@ const Post: React.FC<Props> = (props) => {
 
 			{/* username + caption */}
 			<h4 className="post__text">
-				<strong>{props.userName}</strong>
+				<strong>{props.username}</strong>
 				&nbsp;&nbsp;&nbsp;
 				{props.caption}
 			</h4>
