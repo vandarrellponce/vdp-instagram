@@ -31,10 +31,8 @@
 }
 
 .app__postsLeft {
-	flex: 1;
 }
 
 .app__postsRight {
 	margin-left: 20px;
-	flex: 0;
 }

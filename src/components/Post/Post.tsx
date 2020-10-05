@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './Post.css'
 import Avatar from '@material-ui/core/Avatar'
 import { auth, db } from '../../database/firebase'
-import { Input } from '@material-ui/core'
 import firebase from 'firebase/app'
 
 interface Props {
